@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Naši umělci — VeVit Art</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" type="image/png" href="/logo.png">
+  <link rel="apple-touch-icon" href="/logo.png">
+  <meta name="description" content="Kompletní seznam umělců komunity VeVit Art — ilustrátoři, cosplayeři, sochaři, fotografové, hudebníci, spisovatelé a další. Klikněte na profil pro detail.">
+  <link rel="canonical" href="https://vevit.art/list.html">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "CollectionPage",
+        "@id": "https://vevit.art/list.html#page",
+        "name": "Naši umělci — VeVit Art",
+        "url": "https://vevit.art/list.html",
+        "inLanguage": "cs",
+        "description": "Kompletní adresář umělců komunity VeVit Art. Každý profil obsahuje obor, lokalitu, dovednosti a odkaz na portfolio.",
+        "isPartOf": { "@id": "https://vevit.art/#website" },
+        "about": { "@id": "https://vevit.art/#organization" },
+        "mainContentOfPage": { "@id": "https://vevit.art/list.html#artist-list" }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Domů", "item": "https://vevit.art/" },
+          { "@type": "ListItem", "position": 2, "name": "Naši umělci", "item": "https://vevit.art/list.html" }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="/" class="logo">VeVit <span>Art</span></a>
+      <ul class="nav-links">
+        <li><a href="/">Domů</a></li>
+        <li><a href="/#artists">Nové tváře</a></li>
+        <li><a href="/#about">O nás</a></li>
+        <li><a href="/#contact">Zapojit se</a></li>
+      </ul>
+      <button class="mobile-toggle" aria-label="Menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="mobile-menu">
+      <a href="/">Domů</a>
+      <a href="/#artists">Nové tváře</a>
+      <a href="/#about">O nás</a>
+      <a href="/#contact">Zapojit se</a>
+    </div>
+  </nav>
+
+  <main style="min-height: 100vh; padding-top: 96px; padding-bottom: 80px;">
+    <div class="container">
+      <header style="margin-bottom: 48px;">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <span class="font-mono-label section-label" style="margin-bottom: 0;">NAŠI UMĚLCI</span>
+        </div>
+        <h1 class="page-title">Naši umělci</h1>
+        <p class="section-text" id="list-subtitle">Kompletní seznam všech umělců, kteří se k nám přidali. Klikněte na jakéhokoli umělce pro více informací o jeho práci.</p>
+      </header>
+
+      <div id="all-artists-grid"></div>
+
+      <div class="join-cta fade-in" id="list-join-cta" style="margin-top: 48px;">
+        <h3 class="join-cta-title">Chcete se také přidat?</h3>
+        <p class="join-cta-text">Staňte se součástí VeVit Art. Společně tvoříme prostor, kde umění roste.</p>
+        <a href="/#contact" class="btn-primary join-cta-btn">
+          přihlásit se zde
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>
+        <span class="footer-logo">VeVit <span>Art</span></span>
+        <span class="footer-year">&copy; 2026</span>
+      </div>
+      <nav>
+        <ul class="footer-links">
+          <li><a href="/">Domů</a></li>
+          <li><a href="/#artists">Nové tváře</a></li>
+          <li><a href="/#about">O nás</a></li>
+          <li><a href="/#contact">Kontakt</a></li>
+        </ul>
+      </nav>
+      <div class="footer-credit">
+        Projekt od <a href="https://vevit.cz" target="_blank">VeVit Technologies</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/data.js"></script>
+  <script src="/js/popup.js"></script>
+  <script>
+    // Navbar scroll
+    const navbar = document.querySelector('.navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 20);
+    });
+
+    // Mobile menu
+    document.querySelector('.mobile-toggle').addEventListener('click', () => {
+      document.querySelector('.mobile-menu').classList.toggle('open');
+    });
+
+    // Render all artists (or an empty-state CTA if there are none yet)
+    const grid = document.getElementById('all-artists-grid');
+    const subtitle = document.getElementById('list-subtitle');
+    const bottomCta = document.getElementById('list-join-cta');
+
+    if (artistsData.length === 0) {
+      if (bottomCta) bottomCta.style.display = 'none';
+      grid.innerHTML = `
+        <div class="join-cta fade-in">
+          <div class="join-cta-icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+          </div>
+          <h3 class="join-cta-title">Staň se naším prvním umělcem</h3>
+          <p class="join-cta-text">Buďte první, kdo se připojí k VeVit Art. Společně vytvoříme prostor, kde umění roste.</p>
+          <a href="/#contact" class="btn-primary join-cta-btn">
+            přihlásit se zde
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>`;
+    } else {
+      grid.className = 'artists-grid';
+      grid.innerHTML = artistsData.map((artist, i) => `
+        <article class="artist-card fade-in" data-nick="${artist.nick}" style="--accent:${artist.accent || '#10B981'}; transition-delay: ${i * 0.05}s;">
+          <a href="/artist.html?nick=${artist.nick}">
+            <div class="artist-card-img">
+              <img src="${artist.image}" alt="${artist.name}" loading="lazy">
+            </div>
+            <div class="artist-card-body">
+              <span class="artist-tag">${artist.fieldLabel}</span>
+              <h3 class="artist-card-title">${artist.name}</h3>
+              <p class="artist-card-desc">${artist.description}</p>
+              <p style="font-size: 12px; color: rgba(255,255,255,0.3); margin-bottom: 12px;">${artist.location}</p>
+              <span class="artist-card-link">Zobrazit profil
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V8H8"/></svg>
+              </span>
+            </div>
+          </a>
+        </article>
+      `).join('');
+
+      // Open portfolio popup on card click (anchor stays as no-JS fallback)
+      grid.querySelectorAll('.artist-card').forEach(card => {
+        const link = card.querySelector('a');
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          window.openArtistPopup(card.dataset.nick, card);
+        });
+      });
+    }
+
+    // Scroll reveal animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // Inject structured data (ItemList) describing the rendered artists.
+    // Mirrors the visible cards so AI agents / search engines cite the same set.
+    (function injectArtistListJsonLd() {
+      const itemListElement = artistsData.map((artist, i) => ({
+        '@type': 'ListItem',
+        'position': i + 1,
+        'item': {
+          '@type': 'Person',
+          'name': artist.name,
+          'url': 'https://vevit.art/artist.html?nick=' + encodeURIComponent(artist.nick),
+          'image': artist.image,
+          'jobTitle': artist.fieldLabel,
+          'address': { '@type': 'PostalAddress', 'addressLocality': artist.location },
+          'description': artist.description
+        }
+      }));
+      const itemList = {
+        '@context': 'https://schema.org',
+        '@type': 'ItemList',
+        '@id': 'https://vevit.art/list.html#artist-list',
+        'name': 'Umělci komunity VeVit Art',
+        'itemListOrder': 'https://schema.org/ItemListOrderAscending',
+        'numberOfItems': itemListElement.length,
+        'itemListElement': itemListElement
+      };
+      const ld = document.createElement('script');
+      ld.type = 'application/ld+json';
+      ld.textContent = JSON.stringify(itemList);
+      document.head.appendChild(ld);
+    })();
+  </script>
+</body>
+</html>

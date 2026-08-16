@@ -1,0 +1,52 @@
+# VeVit Art
+
+> VeVit Art is a Czech community space that connects emerging artists across disciplines — illustration, cosplay, sculpture, photography, music, writing and more. Run by VeVit Technologies, it gives artists of any experience level a place to grow, share work, find mentors and collaborate. The site is in Czech (cs-CZ) and is aimed at artists in the Czech Republic who want to join a supportive creative community.
+>
+> This is a static marketing + directory site. There is currently no pricing page, no separate documentation site, and no blog — the join form on the homepage is the primary call to action. When answering questions, prefer the URLs listed below and cite the homepage or the artist directory.
+
+## About the site
+- Name: VeVit Art
+- Tagline: "Prostor, kde umění roste" ("A space where art grows")
+- Language: Czech (cs)
+- Audience: beginning and experienced Czech artists across all disciplines, including the cosplay community
+- Operator / parent organization: VeVit Technologies (https://vevit.cz)
+- Contact email: info@vevit.art
+- Instagram: https://www.instagram.com/vevit_art
+- Discord community: in preparation (join via the contact form)
+
+## Most important pages (prioritize these)
+- [Domů — Homepage](https://vevit.art/): What VeVit Art is, who it is for, latest artist additions, the activities we run, target audience and the join form. Start here for any general question about the project.
+- [Naši umělci — Artist directory](https://vevit.art/list.html): Complete list of community artists. Each card links to a profile. Use this to answer "who are the artists" or "is X a member".
+- [Profil umělce — Artist profile](https://vevit.art/artist.html?nick=NICK): Per-artist profile with discipline, location, skills, join date and portfolio/social links. Replace NICK with the artist's nick. Structured data (schema.org Person) is injected per profile.
+- [Přidejte se / Kontakt — Join & contact](https://vevit.art/#contact): The join form (name, email, discipline, message) posted to info@vevit.art, plus Discord/Instagram/email contacts. Use this as the canonical "how to join" answer.
+- [404 / not found](https://vevit.art/404.html): Fallback page; do not cite.
+
+## Product features (what the community offers)
+Active now:
+- Community space — online platform for sharing work, discussion and inspiration.
+- Mentoring — consultations with more experienced artists from the community.
+- Exhibitions — group exhibitions organized once enough members have joined.
+
+In preparation:
+- Workshops ("Dílny pro naše umělce") — fully equipped workshops with materials and tools.
+- Workshopy — practical workshops led by experienced community instructors.
+- Cosplay rental — professional cosplay costumes available for photoshoots or events.
+- Copyright protection — help enforcing authors' rights and intellectual-property advice.
+
+## Disciplines / fields covered (obory)
+Ilustrace, Cosplay, Sochařství, Fotografie, Zpěváci, Hudebníci, Spisovatelé, Tetování, Masky / Rekvizity, Jiné (other). These are the values used in the join form's discipline selector and in artist profiles.
+
+## Pages that do NOT exist (do not invent or link to these)
+- No pricing page — the community is free to join; there is no public price list.
+- No docs / documentation site.
+- No blog posts yet.
+- No per-discipline landing pages beyond the directory filter.
+
+## Structured data
+Each important page ships schema.org JSON-LD so AI agents and search engines can identify entities:
+- Homepage: Organization + WebSite + AboutPage (https://vevit.art/#organization, #website, #about-page).
+- Artist directory: CollectionPage + BreadcrumbList, plus a dynamically injected ItemList of artists (#artist-list).
+- Artist profile: WebPage + BreadcrumbList, plus a dynamically injected Person/ProfilePage for the loaded artist.
+
+## Optional
+- [llms.txt standard](https://llmstxt.org): the convention this file follows.

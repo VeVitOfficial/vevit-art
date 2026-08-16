@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  html, body { margin: 0; padding: 0; background: #15160f; }
+  * { box-sizing: border-box; }
+  a { color: #d8c3ad; text-decoration: none; }
+  a:hover { color: #f2e8db; }
+  ::selection { background: #6f7a5c; color: #f4efe4; }
+  @keyframes riseIn { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+  @keyframes softIn { from { opacity: 0; } to { opacity: 1; } }
+
+  .pf-burger { display:none; flex-direction:column; justify-content:center; gap:5px; width:30px; height:30px; padding:0; background:transparent; border:none; cursor:pointer; }
+  .pf-burger span { display:block; width:26px; height:2px; background:#e9e2d4; transition:transform .25s, opacity .2s; }
+  .pf-burger[aria-expanded="true"] span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+  .pf-burger[aria-expanded="true"] span:nth-child(2) { opacity:0; }
+  .pf-burger[aria-expanded="true"] span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
+  @media (max-width: 768px) {
+    .pf-burger { display:flex; }
+    .pf-nav { display:none !important; position:absolute; top:100%; left:0; right:0; flex-direction:column !important; gap:0 !important; padding:8px 28px 18px; background:#15160ff2; backdrop-filter:blur(12px); border-bottom:1px solid #ffffff1a; }
+    .pf-nav.open { display:flex !important; }
+    .pf-nav a { padding:14px 0 !important; border-bottom:1px solid #ffffff14 !important; color:#c7bda6 !important; }
+    .pf-nav a:last-child { border-bottom:none !important; }
+  }
+</style>
+</helmet>
+
+<div style="background:#15160f;color:#e9e2d4;font-family:'Jost',system-ui,sans-serif;font-weight:300;overflow-x:hidden">
+
+  <header style="position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:18px 28px;background:linear-gradient(#15160fdd,#15160f00);backdrop-filter:blur(6px)">
+    <a href="https://vevit.art" style="display:flex;align-items:center;gap:8px;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#b9b3a2" style-hover="color:#e9e2d4">
+      <span aria-hidden="true">←</span>
+      <span>Zpět na vevit.art</span>
+    </a>
+    <a href="#uvod" style="font-family:'Cormorant Garamond',serif;font-size:22px;letter-spacing:0.34em;text-transform:uppercase;color:#e9e2d4">Anelly</a>
+    <button class="pf-burger" aria-label="Otevřít menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    <nav class="pf-nav" style="display:flex;gap:26px;font-size:13px;letter-spacing:0.18em;text-transform:uppercase">
+      <a href="#o-mne" style="color:#b9b3a2">O mně</a>
+      <a href="#tvorba" style="color:#b9b3a2">Tvorba</a>
+      <a href="#live" style="color:#b9b3a2">Zkušenosti</a>
+      <a href="#kontakt" style="color:#b9b3a2">Kontakt</a>
+    </nav>
+  </header>
+
+  <section id="uvod" data-screen-label="Hero" style="position:relative;margin-top:-74px;min-height:100vh;display:grid;align-items:end;overflow:hidden">
+    <img src="uploads/IMG_5636.jpeg" alt="Anelly na louce" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 60%;filter:saturate(0.9)" />
+    <div style="position:absolute;inset:0;background:linear-gradient(180deg,#15160f99 0%,#15160f22 32%,#15160fcc 78%,#15160f 100%)"></div>
+    <div style="position:relative;padding:0 28px 84px;max-width:1200px;margin:0 auto;width:100%;animation:riseIn 1.1s ease both">
+      <p style="margin:0 0 18px;font-size:12px;letter-spacing:0.4em;text-transform:uppercase;color:#c7bda6">Pop · indie pop · christian pop</p>
+      <h1 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(64px,14vw,180px);line-height:0.88;letter-spacing:-0.01em">Anelly</h1>
+      <p style="margin:26px 0 0;max-width:38ch;font-size:clamp(17px,2.1vw,21px);line-height:1.6;color:#ded6c6;text-wrap:pretty">Zpěvačka a autorka písní z Prahy. Píšu o víře, o pochybnostech a o tom, co se běžně neříká nahlas.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:34px">
+        <a href="https://open.spotify.com/artist/1hRtVtzCpa0JZgCVt1Z3x0" target="_blank" rel="noopener" style="padding:14px 26px;border:1px solid #e9e2d4;color:#15160f;background:#e9e2d4;font-size:13px;letter-spacing:0.18em;text-transform:uppercase" style-hover="background:#fff;border-color:#fff">Poslechnout na Spotify</a>
+        <a href="#tvorba" style="padding:14px 26px;border:1px solid #e9e2d466;color:#e9e2d4;font-size:13px;letter-spacing:0.18em;text-transform:uppercase" style-hover="border-color:#e9e2d4">Fading — nový singl</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="o-mne" data-screen-label="O mně" style="max-width:1200px;margin:0 auto;padding:clamp(80px,12vh,150px) 28px;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(36px,6vw,84px);align-items:center">
+    <div>
+      <p style="margin:0 0 28px;font-size:12px;letter-spacing:0.4em;text-transform:uppercase;color:#8f9678">01 — O mně</p>
+      <h2 style="margin:0 0 28px;font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(32px,4.4vw,54px);line-height:1.12">Odmalička hraju na klavír a hudba byla vždycky velká část mého života.</h2>
+      <div style="display:grid;gap:20px;max-width:52ch;font-size:17px;line-height:1.75;color:#c8c1b0;text-wrap:pretty">
+        <p style="margin:0">Nejvíc se do mé hudby prolíná moje víra a tu chci svou muzikou šířit dál. Chci inspirovat hlavně mladé lidi v ateistickém prostředí, aby se nebáli mluvit o tom, co je pro ně důležité a v Koho věří.</p>
+        <p style="margin:0">Píšu songy, hraju a zpívám.</p>
+      </div>
+      <p style="margin:36px 0 0;padding-top:26px;border-top:1px solid #ffffff1a;font-size:14px;letter-spacing:0.06em;color:#9c9584">Největší inspirace: Gracie Abrams · Zoe Levert · Grace Runkle</p>
+    </div>
+    <figure style="margin:0">
+      <img src="uploads/IMG_5631.jpeg" alt="Portrét Anelly" style="width:100%;aspect-ratio:3/4;object-fit:cover;display:block" />
+    </figure>
+  </section>
+
+  <section id="tvorba" data-screen-label="Tvorba" style="background:#e7e0d2;color:#22241a">
+    <div style="max-width:1200px;margin:0 auto;padding:clamp(80px,12vh,150px) 28px">
+      <p style="margin:0 0 28px;font-size:12px;letter-spacing:0.4em;text-transform:uppercase;color:#6f7a5c">02 — Tvorba</p>
+      <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:44px">
+        <h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(44px,8vw,110px);line-height:0.95">Fading</h2>
+        <p style="margin:0;font-size:14px;letter-spacing:0.16em;text-transform:uppercase;color:#5e6350">Singl · autorská skladba</p>
+      </div>
+
+      <sc-if value="{{ showVideoEmbed }}" hint-placeholder-val="{{ true }}">
+        <div style="position:relative;width:100%;aspect-ratio:16/9;background:#22241a;overflow:hidden">
+          <iframe src="https://www.youtube.com/embed/nn9ocu0MKTk" title="Anelly — Fading" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" style="position:absolute;inset:0;width:100%;height:100%;border:0"></iframe>
+        </div>
+      </sc-if>
+      <sc-if value="{{ hideVideoEmbed }}" hint-placeholder-val="{{ false }}">
+        <a href="https://youtu.be/nn9ocu0MKTk" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:space-between;gap:24px;padding:38px 30px;border:1px solid #22241a33;color:#22241a" style-hover="background:#dcd4c4">
+          <span style="font-family:'Cormorant Garamond',serif;font-size:30px">Fading — videoklip</span>
+          <span style="font-size:13px;letter-spacing:0.2em;text-transform:uppercase">Přehrát na YouTube →</span>
+        </a>
+      </sc-if>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1px;margin-top:56px;background:#22241a26">
+        <a href="https://open.spotify.com/artist/1hRtVtzCpa0JZgCVt1Z3x0" target="_blank" rel="noopener" style="display:flex;flex-direction:column;gap:10px;padding:28px 24px;background:#e7e0d2;color:#22241a" style-hover="background:#dcd4c4">
+          <span style="font-size:11px;letter-spacing:0.3em;text-transform:uppercase;color:#6f7a5c">Streaming</span>
+          <span style="font-family:'Cormorant Garamond',serif;font-size:26px">Spotify</span>
+        </a>
+        <a href="https://music.apple.com/cz/album/fading/6769298624?i=6769298625" target="_blank" rel="noopener" style="display:flex;flex-direction:column;gap:10px;padding:28px 24px;background:#e7e0d2;color:#22241a" style-hover="background:#dcd4c4">
+          <span style="font-size:11px;letter-spacing:0.3em;text-transform:uppercase;color:#6f7a5c">Streaming</span>
+          <span style="font-family:'Cormorant Garamond',serif;font-size:26px">Apple Music</span>
+        </a>
+        <a href="https://youtube.com/@anelly_musiic" target="_blank" rel="noopener" style="display:flex;flex-direction:column;gap:10px;padding:28px 24px;background:#e7e0d2;color:#22241a" style-hover="background:#dcd4c4">
+          <span style="font-size:11px;letter-spacing:0.3em;text-transform:uppercase;color:#6f7a5c">Video</span>
+          <span style="font-family:'Cormorant Garamond',serif;font-size:26px">YouTube</span>
+        </a>
+        <a href="https://www.instagram.com/_anelly_music" target="_blank" rel="noopener" style="display:flex;flex-direction:column;gap:10px;padding:28px 24px;background:#e7e0d2;color:#22241a" style-hover="background:#dcd4c4">
+          <span style="font-size:11px;letter-spacing:0.3em;text-transform:uppercase;color:#6f7a5c">Sociální sítě</span>
+          <span style="font-family:'Cormorant Garamond',serif;font-size:26px">Instagram</span>
+        </a>
+        <a href="https://www.tiktok.com/@_anelly_music" target="_blank" rel="noopener" style="display:flex;flex-direction:column;gap:10px;padding:28px 24px;background:#e7e0d2;color:#22241a" style-hover="background:#dcd4c4">
+          <span style="font-size:11px;letter-spacing:0.3em;text-transform:uppercase;color:#6f7a5c">Sociální sítě</span>
+          <span style="font-family:'Cormorant Garamond',serif;font-size:26px">TikTok</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="live" data-screen-label="Live" style="position:relative">
+    <div style="position:relative;height:clamp(420px,74vh,760px);overflow:hidden">
+      <img src="uploads/IMG_5609.jpeg" alt="Anelly v pohybu" style="width:100%;height:100%;object-fit:cover;object-position:50% 55%" />
+      <div style="position:absolute;inset:0;background:linear-gradient(180deg,#15160f 0%,#15160f22 30%,#15160f 100%)"></div>
+      <p style="position:absolute;left:0;right:0;bottom:clamp(28px,6vh,64px);margin:0;text-align:center;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(24px,4.4vw,50px);line-height:1.3;color:#efe7d9;padding:0 28px;text-wrap:pretty">„Nebát se mluvit o tom, v Koho věřím.“</p>
+    </div>
+
+    <div style="max-width:1200px;margin:0 auto;padding:clamp(70px,10vh,130px) 28px">
+      <p style="margin:0 0 40px;font-size:12px;letter-spacing:0.4em;text-transform:uppercase;color:#8f9678">03 — Zkušenosti</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1px;background:#ffffff1f">
+        <div style="padding:34px 26px;background:#15160f">
+          <p style="margin:0 0 14px;font-family:'Cormorant Garamond',serif;font-size:30px;color:#f0e9db">Hlas Česka</p>
+          <p style="margin:0;font-size:16px;line-height:1.7;color:#b6af9e">Postup až do semifinále první velká zkušenost s jevištěm a s kamerou.</p>
+        </div>
+        <div style="padding:34px 26px;background:#15160f">
+          <p style="margin:0 0 14px;font-family:'Cormorant Garamond',serif;font-size:30px;color:#f0e9db">Trhy &amp; akce</p>
+          <p style="margin:0;font-size:16px;line-height:1.7;color:#b6af9e">Pravidelná živá vystoupení s klavírem a kytarou, vlastní i převzatý repertoár.</p>
+        </div>
+        <div style="padding:34px 26px;background:#15160f">
+          <p style="margin:0 0 14px;font-family:'Cormorant Garamond',serif;font-size:30px;color:#f0e9db">Busking v Praze</p>
+          <p style="margin:0;font-size:16px;line-height:1.7;color:#b6af9e">Hraní na ulici nejrychlejší škola toho, jak si získat pozornost kolemjdoucích.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="kontakt" data-screen-label="Plány a kontakt" style="border-top:1px solid #ffffff1a">
+    <div style="max-width:1200px;margin:0 auto;padding:clamp(80px,12vh,150px) 28px;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(36px,6vw,84px)">
+      <div>
+        <p style="margin:0 0 28px;font-size:12px;letter-spacing:0.4em;text-transform:uppercase;color:#8f9678">04 — Plány</p>
+        <h2 style="margin:0 0 24px;font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(32px,4.4vw,54px);line-height:1.12">Chystám další singl.</h2>
+        <p style="margin:0;max-width:46ch;font-size:17px;line-height:1.75;color:#c8c1b0;text-wrap:pretty">Ráda bych navázala spolupráci s dalšími umělci i producenty, se kterými by vznikl nový song. Pokud tě moje muzika zaujala, ozvi se.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:18px">
+        <form onSubmit="{{ handleSubmit }}" style="display:flex;flex-direction:column;gap:14px;padding:26px;border:1px solid #ffffff2e">
+          <input name="name" type="text" placeholder="Jméno" required="" style="background:transparent;border:none;border-bottom:1px solid #ffffff33;color:#e9e2d4;font-family:'Jost',sans-serif;font-size:16px;padding:10px 2px;outline:none" />
+          <input name="email" type="email" placeholder="Tvůj e-mail" required="" style="background:transparent;border:none;border-bottom:1px solid #ffffff33;color:#e9e2d4;font-family:'Jost',sans-serif;font-size:16px;padding:10px 2px;outline:none" />
+          <textarea name="message" placeholder="Zpráva" required="" rows="4" style="background:transparent;border:none;border-bottom:1px solid #ffffff33;color:#e9e2d4;font-family:'Jost',sans-serif;font-size:16px;padding:10px 2px;outline:none;resize:vertical"></textarea>
+          <button type="submit" style="align-self:flex-start;margin-top:6px;padding:14px 26px;border:1px solid #e9e2d4;background:#e9e2d4;color:#15160f;font-size:13px;letter-spacing:0.18em;text-transform:uppercase;cursor:pointer" style-hover="background:#fff;border-color:#fff">Odeslat</button>
+        </form>
+        <a href="https://www.instagram.com/_anelly_music" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:space-between;gap:20px;padding:24px 26px;border:1px solid #ffffff2e;color:#e9e2d4" style-hover="border-color:#e9e2d4;background:#ffffff0d">
+          <span style="font-family:'Cormorant Garamond',serif;font-size:26px">Napsat na Instagramu</span>
+          <span style="font-size:13px;letter-spacing:0.2em">→</span>
+        </a>
+      </div>
+    </div>
+    <div style="max-width:1200px;margin:0 auto;padding:0 28px 60px;display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between;font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:#7f7a6b">
+      <span>Anelly — 2026</span>
+      <span>Pop · indie pop · christian pop</span>
+    </div>
+  </section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;showVideoEmbed&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Tvorba&quot;}}">
+class Component extends DCLogic {
+  handleSubmit = (e) => {
+    e.preventDefault();
+    const f = e.target;
+    const name = f.name.value;
+    const email = f.email.value;
+    const message = f.message.value;
+    const subject = encodeURIComponent(`Zpráva od ${name} — anelly portfolio`);
+    const body = encodeURIComponent(`${message}\n\n— ${name} (${email})`);
+    window.location.href = `mailto:annabodruhova@gmail.com?subject=${subject}&body=${body}`;
+  };
+  renderVals() {
+    const embed = this.props.showVideoEmbed ?? true;
+    return { showVideoEmbed: embed, hideVideoEmbed: !embed, handleSubmit: this.handleSubmit };
+  }
+}
+</script>
+<script>
+  (function () {
+    function getEls() { return { btn: document.querySelector('.pf-burger'), nav: document.querySelector('.pf-nav') }; }
+    function close() { var e = getEls(); if (e.nav) e.nav.classList.remove('open'); if (e.btn) e.btn.setAttribute('aria-expanded', 'false'); }
+    document.addEventListener('click', function (ev) {
+      var btn = ev.target.closest && ev.target.closest('.pf-burger');
+      if (btn) {
+        var nav = document.querySelector('.pf-nav');
+        var open = nav && nav.classList.toggle('open');
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        return;
+      }
+      if (ev.target.closest && ev.target.closest('.pf-nav a')) { close(); return; }
+      if (!ev.target.closest || (!ev.target.closest('.pf-nav') && !ev.target.closest('.pf-burger'))) close();
+    });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+  })();
+</script>
+</body>
+</html>
