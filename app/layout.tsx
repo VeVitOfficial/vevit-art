@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
 import JsonLd from "@/components/JsonLd";
 import ArtistPopupProvider from "@/components/ArtistPopupProvider";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const SITE_URL = "https://vevit.art";
 
@@ -93,6 +94,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Footer />
           <Reveal />
         </ArtistPopupProvider>
+        <SpeedInsights />
       </body>
     </html>
   );
