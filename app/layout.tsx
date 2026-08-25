@@ -82,11 +82,11 @@ const rootJsonLd = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="cs">
+    <html lang="cs" suppressHydrationWarning>
       <head>
         <JsonLd data={rootJsonLd} />
       </head>
-      <body>
+      <body suppressHydrationWarning>
         <ArtistPopupProvider>
           <Navbar />
           <main>{children}</main>
