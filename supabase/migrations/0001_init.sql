@@ -3,6 +3,9 @@
 -- Auth řeší Supabase Auth; password_hash / auth_token / token_expires mizí.
 -- RLS reprodukuje PHP requireAuth + artist_id scoping (veřejný select,
 -- write jen pro vlastníka řádku).
+--
+-- Idempotentní: tabulky `if not exists`, funkce `create or replace`,
+-- policy `drop policy if exists` před `create` — bezpečně spustitelné znovu.
 
 create extension if not exists "pgcrypto";
 
@@ -121,30 +124,31 @@ create index if not exists education_artist_idx         on public.education(arti
 alter table public.artists             enable row level security;
 alter table public.social_links        enable row level security;
 alter table public.portfolio_samples   enable row level security;
-alter table public.experiences         enable row level security;
+alter table public.experiences       enable row level security;
 alter table public.collaborations      enable row level security;
 alter table public.awards              enable row level security;
 alter table public.education           enable row level security;
 
 -- artists: veřejný select; write jen pro vlastníka (user_id = auth.uid())
+drop policy if exists "artists_select_public" on public.artists;
+drop policy if exists "artists_insert_own"   on public.artists;
+drop policy if exists "artists_update_own"   on public.artists;
+drop policy if exists "artists_delete_own"   on public.artists;
 create policy "artists_select_public" on public.artists
   for select using (true);
-
 create policy "artists_insert_own" on public.artists
   for insert with check (user_id = auth.uid());
-
 create policy "artists_update_own" on public.artists
   for update using (user_id = auth.uid()) with check (user_id = auth.uid());
-
 create policy "artists_delete_own" on public.artists
   for delete using (user_id = auth.uid());
 
 -- Pomocný výraz: artist_id patří přihlášenému uživateli.
 -- Používáno pro related tabulky (using i with check).
-create function public.artist_owned_by_current_user(a_id uuid)
+create or replace function public.artist_owned_by_current_user(a_id uuid)
 returns boolean
 language sql
-security definer
+security invoker
 set search_path = public
 as $$
   select exists (
@@ -156,6 +160,10 @@ $$;
 -- Related tabulky: veřejný select; write jen pro umělce, kterýmu patří artist_id.
 -- (Stejný scoping jako PHP `artist_id = $artist['id']` po requireAuth.)
 
+drop policy if exists "social_links_select_public" on public.social_links;
+drop policy if exists "social_links_insert_own"   on public.social_links;
+drop policy if exists "social_links_update_own"   on public.social_links;
+drop policy if exists "social_links_delete_own"   on public.social_links;
 create policy "social_links_select_public" on public.social_links
   for select using (true);
 create policy "social_links_insert_own" on public.social_links
@@ -166,6 +174,10 @@ create policy "social_links_update_own" on public.social_links
 create policy "social_links_delete_own" on public.social_links
   for delete using (public.artist_owned_by_current_user(artist_id));
 
+drop policy if exists "portfolio_samples_select_public" on public.portfolio_samples;
+drop policy if exists "portfolio_samples_insert_own"   on public.portfolio_samples;
+drop policy if exists "portfolio_samples_update_own"   on public.portfolio_samples;
+drop policy if exists "portfolio_samples_delete_own"   on public.portfolio_samples;
 create policy "portfolio_samples_select_public" on public.portfolio_samples
   for select using (true);
 create policy "portfolio_samples_insert_own" on public.portfolio_samples
@@ -176,6 +188,10 @@ create policy "portfolio_samples_update_own" on public.portfolio_samples
 create policy "portfolio_samples_delete_own" on public.portfolio_samples
   for delete using (public.artist_owned_by_current_user(artist_id));
 
+drop policy if exists "experiences_select_public" on public.experiences;
+drop policy if exists "experiences_insert_own"   on public.experiences;
+drop policy if exists "experiences_update_own"   on public.experiences;
+drop policy if exists "experiences_delete_own"   on public.experiences;
 create policy "experiences_select_public" on public.experiences
   for select using (true);
 create policy "experiences_insert_own" on public.experiences
@@ -186,6 +202,10 @@ create policy "experiences_update_own" on public.experiences
 create policy "experiences_delete_own" on public.experiences
   for delete using (public.artist_owned_by_current_user(artist_id));
 
+drop policy if exists "collaborations_select_public" on public.collaborations;
+drop policy if exists "collaborations_insert_own"   on public.collaborations;
+drop policy if exists "collaborations_update_own"   on public.collaborations;
+drop policy if exists "collaborations_delete_own"   on public.collaborations;
 create policy "collaborations_select_public" on public.collaborations
   for select using (true);
 create policy "collaborations_insert_own" on public.collaborations
@@ -196,6 +216,10 @@ create policy "collaborations_update_own" on public.collaborations
 create policy "collaborations_delete_own" on public.collaborations
   for delete using (public.artist_owned_by_current_user(artist_id));
 
+drop policy if exists "awards_select_public" on public.awards;
+drop policy if exists "awards_insert_own"   on public.awards;
+drop policy if exists "awards_update_own"   on public.awards;
+drop policy if exists "awards_delete_own"   on public.awards;
 create policy "awards_select_public" on public.awards
   for select using (true);
 create policy "awards_insert_own" on public.awards
@@ -206,6 +230,10 @@ create policy "awards_update_own" on public.awards
 create policy "awards_delete_own" on public.awards
   for delete using (public.artist_owned_by_current_user(artist_id));
 
+drop policy if exists "education_select_public" on public.education;
+drop policy if exists "education_insert_own"   on public.education;
+drop policy if exists "education_update_own"   on public.education;
+drop policy if exists "education_delete_own"   on public.education;
 create policy "education_select_public" on public.education
   for select using (true);
 create policy "education_insert_own" on public.education
