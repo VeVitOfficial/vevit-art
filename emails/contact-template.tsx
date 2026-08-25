@@ -13,7 +13,7 @@ import {
 export type ContactTemplateProps = {
   jmeno: string;
   email: string;
-  obor: string;
+  obor?: string;
   obor_jiny?: string | null;
   zprava: string;
   source: "homepage" | "404" | "portfolio";
@@ -48,8 +48,11 @@ export default function ContactTemplate({
   source,
   artistNick,
 }: ContactTemplateProps) {
-  const oborValue =
-    obor === "Jiné" && obor_jiny ? `${obor} — ${obor_jiny}` : obor;
+  const oborValue = !obor
+    ? "Není uvedeno"
+    : obor === "Jiné" && obor_jiny
+      ? `${obor} — ${obor_jiny}`
+      : obor;
 
   const zdroj = artistNick
     ? `${SOURCE_LABEL[source]} (${artistNick})`

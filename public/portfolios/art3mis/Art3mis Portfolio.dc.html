@@ -154,7 +154,8 @@
         <input name="name" type="text" placeholder="Jméno" required="" style="background:transparent;border:none;border-bottom:1px solid #ffffff33;color:#f2f0ec;font-family:'Jost',sans-serif;font-size:16px;padding:10px 2px;outline:none">
         <input name="email" type="email" placeholder="Tvůj e-mail" required="" style="background:transparent;border:none;border-bottom:1px solid #ffffff33;color:#f2f0ec;font-family:'Jost',sans-serif;font-size:16px;padding:10px 2px;outline:none">
         <textarea name="message" placeholder="Zpráva" required="" rows="4" style="background:transparent;border:none;border-bottom:1px solid #ffffff33;color:#f2f0ec;font-family:'Jost',sans-serif;font-size:16px;padding:10px 2px;outline:none;resize:vertical"></textarea>
-        <button type="submit" style="align-self:flex-start;margin-top:6px;padding:14px 26px;border:1px solid #e6362e;background:#e6362e;color:#0a0a0a;font-size:13px;letter-spacing:0.18em;text-transform:uppercase;cursor:pointer" style-hover="background:#ff5148;border-color:#ff5148">Odeslat</button>
+        <button type="submit" style="align-self:flex-start;margin-top:6px;padding:14px 26px;border:1px solid #e6362e;background:#e6362e;color:#0a0a0a;font-size:13px;letter-spacing:0.18em;text-transform:uppercase;cursor:pointer" style-hover="background:#ff5148;border-color:#ff5148">{{ submitLabel }}</button>
+        <p style="margin:6px 0 0;font-size:13px;min-height:18px;color:#c7c4bd">{{ status }}</p>
       </form>
     </div>
     <div style="max-width:1240px;margin:0 auto;padding:0 28px 60px;display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between;font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:#6f6b64">
@@ -166,15 +167,32 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
-  handleSubmit = (e) => {
+  handleSubmit = async (e) => {
     e.preventDefault();
     const f = e.target;
-    const name = f.name.value;
-    const email = f.email.value;
-    const message = f.message.value;
-    const subject = encodeURIComponent(`Zpráva od ${name} — art3mis portfolio`);
-    const body = encodeURIComponent(`${message}\n\n— ${name} (${email})`);
-    window.location.href = `mailto:hanasulcova139@seznam.cz?subject=${subject}&body=${body}`;
+    if (this.state.sending) return;
+    this.setState({ sending: true, status: "" });
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          jmeno: f.name.value,
+          email: f.email.value,
+          zprava: f.message.value,
+          source: "portfolio",
+          artistNick: "art3mis",
+        }),
+      });
+      if (res.ok) {
+        this.setState({ sending: false, status: "Díky! Zpráva byla odeslána." });
+        f.reset();
+      } else {
+        this.setState({ sending: false, status: "Něco se pokazilo. Zkuste to znovu." });
+      }
+    } catch {
+      this.setState({ sending: false, status: "Něco se pokazilo. Zkuste to znovu." });
+    }
   };
   renderVals() {
     const artworks = [
@@ -190,7 +208,7 @@ class Component extends DCLogic {
       { src: 'uploads/20260302_183811-aa3eb4ef.jpg', alt: 'Barevná koláž se symboly' },
       { src: 'uploads/20260617_185124.jpg', alt: 'Ilustrace' },
     ];
-    return { artworks, handleSubmit: this.handleSubmit };
+    return { artworks, handleSubmit: this.handleSubmit, status: this.state.status ?? "", submitLabel: this.state.sending ? "Odesílám…" : "Odeslat" };
   }
 }
 </script>

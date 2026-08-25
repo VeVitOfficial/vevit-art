@@ -164,7 +164,8 @@
           <input name="name" type="text" placeholder="Jméno" required="" style="background:transparent;border:none;border-bottom:1px solid #ffffff33;color:#e9e2d4;font-family:'Jost',sans-serif;font-size:16px;padding:10px 2px;outline:none" />
           <input name="email" type="email" placeholder="Tvůj e-mail" required="" style="background:transparent;border:none;border-bottom:1px solid #ffffff33;color:#e9e2d4;font-family:'Jost',sans-serif;font-size:16px;padding:10px 2px;outline:none" />
           <textarea name="message" placeholder="Zpráva" required="" rows="4" style="background:transparent;border:none;border-bottom:1px solid #ffffff33;color:#e9e2d4;font-family:'Jost',sans-serif;font-size:16px;padding:10px 2px;outline:none;resize:vertical"></textarea>
-          <button type="submit" style="align-self:flex-start;margin-top:6px;padding:14px 26px;border:1px solid #e9e2d4;background:#e9e2d4;color:#15160f;font-size:13px;letter-spacing:0.18em;text-transform:uppercase;cursor:pointer" style-hover="background:#fff;border-color:#fff">Odeslat</button>
+          <button type="submit" style="align-self:flex-start;margin-top:6px;padding:14px 26px;border:1px solid #e9e2d4;background:#e9e2d4;color:#15160f;font-size:13px;letter-spacing:0.18em;text-transform:uppercase;cursor:pointer" style-hover="background:#fff;border-color:#fff">{{ submitLabel }}</button>
+          <p style="margin:6px 0 0;font-size:13px;min-height:18px;color:#c8c1b0">{{ status }}</p>
         </form>
         <a href="https://www.instagram.com/_anelly_music" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:space-between;gap:20px;padding:24px 26px;border:1px solid #ffffff2e;color:#e9e2d4" style-hover="border-color:#e9e2d4;background:#ffffff0d">
           <span style="font-family:'Cormorant Garamond',serif;font-size:26px">Napsat na Instagramu</span>
@@ -181,19 +182,36 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;showVideoEmbed&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Tvorba&quot;}}">
 class Component extends DCLogic {
-  handleSubmit = (e) => {
+  handleSubmit = async (e) => {
     e.preventDefault();
     const f = e.target;
-    const name = f.name.value;
-    const email = f.email.value;
-    const message = f.message.value;
-    const subject = encodeURIComponent(`Zpráva od ${name} — anelly portfolio`);
-    const body = encodeURIComponent(`${message}\n\n— ${name} (${email})`);
-    window.location.href = `mailto:annabodruhova@gmail.com?subject=${subject}&body=${body}`;
+    if (this.state.sending) return;
+    this.setState({ sending: true, status: "" });
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          jmeno: f.name.value,
+          email: f.email.value,
+          zprava: f.message.value,
+          source: "portfolio",
+          artistNick: "anelly",
+        }),
+      });
+      if (res.ok) {
+        this.setState({ sending: false, status: "Díky! Zpráva byla odeslána." });
+        f.reset();
+      } else {
+        this.setState({ sending: false, status: "Něco se pokazilo. Zkuste to znovu." });
+      }
+    } catch {
+      this.setState({ sending: false, status: "Něco se pokazilo. Zkuste to znovu." });
+    }
   };
   renderVals() {
     const embed = this.props.showVideoEmbed ?? true;
-    return { showVideoEmbed: embed, hideVideoEmbed: !embed, handleSubmit: this.handleSubmit };
+    return { showVideoEmbed: embed, hideVideoEmbed: !embed, handleSubmit: this.handleSubmit, status: this.state.status ?? "", submitLabel: this.state.sending ? "Odesílám…" : "Odeslat" };
   }
 }
 </script>
