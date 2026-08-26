@@ -1,5 +1,4 @@
 import type { NextConfig } from "next";
-import { Analytics } from "@vercel/analytics/next"
 
 const nextConfig: NextConfig = {
   trailingSlash: false,
