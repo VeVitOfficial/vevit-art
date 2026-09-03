@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import type { CSSProperties } from "react";
 import LatestArtists from "@/components/LatestArtists";
 import ContactForm from "@/components/ContactForm";
 import CopyEmailButton from "@/components/CopyEmailButton";
@@ -8,35 +9,86 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://vevit.art/" },
 };
 
+const activeOfferings = [
+  {
+    title: "Portfolio zdarma",
+    desc: "Vlastní online portfolio, kde prezentujete svou tvorbu zcela zdarma a bez starostí s technikou.",
+    path: "M3 3h7v9H3zM14 3h7v5h-7zM14 12h7v9h-7zM3 16h7v5H3z",
+    rect: true,
+  },
+  {
+    title: "Komunitní prostor",
+    desc: "Diskord, kde sdílíme práci, radíme si a povídáme si o tvorbě.",
+    path: "M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z",
+  },
+  {
+    title: "Mentoring",
+    desc: "Možnost poradit se a popovídat si se zkušenějšími umělci z komunity.",
+    path: "M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2",
+  },
+];
+
+const plannedOfferings = [
+  {
+    title: "Workshopy",
+    desc: "Workshop, kde si mezi sebou ukážeme vlastní postupy a techniky.",
+    path: "M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z",
+  },
+  {
+    title: "Výstavy",
+    desc: "Až nás bude víc, chceme uspořádat první společnou výstavu. Zatím je nás málo — to je jasný cíl, ne skrývaná podmínka.",
+    rect: true,
+  },
+];
+
 export default function HomePage() {
   return (
     <>
       {/* HERO */}
       <section className="hero" id="hero">
-        <div className="hero-particles">
-          <div className="hero-particle" style={{ width: 120, height: 120, left: "10%", top: "20%" }} />
-          <div className="hero-particle" style={{ width: 200, height: 200, left: "70%", top: "10%" }} />
-          <div className="hero-particle" style={{ width: 80, height: 80, left: "80%", top: "60%" }} />
-          <div className="hero-particle" style={{ width: 150, height: 150, left: "20%", top: "70%" }} />
-          <div className="hero-particle" style={{ width: 100, height: 100, left: "50%", top: "80%" }} />
+        <div className="hero-inner">
+          <header className="hero-copy">
+            <span className="font-mono-label hero-label">KOMUNITA PRO UMĚLCE</span>
+            <h1 className="hero-title">VeVit Art</h1>
+            <p className="hero-subtitle">
+              Prostor, kde <span>umění</span> roste
+            </p>
+            <p className="hero-text">
+              Propojujeme začínající umělce všech oborů, od ilustrace přes cosplay až po spisovatele. Společně
+              rosteme, sdílíme a tvoříme.
+            </p>
+            <a href="/list" className="hero-cta">
+              Prohlédněte si naše umělce
+            </a>
+            <a href="#about" className="hero-secondary">
+              nebo se dozvědět více
+            </a>
+          </header>
+          <div className="hero-showcase" aria-hidden="false">
+            <figure className="hero-showcase-item hero-showcase-item--a">
+              <img
+                src="/portfolios/art3mis/uploads/20251020_222528-605336dc.jpg"
+                alt="Ilustrace od ART3MIS"
+                style={{ objectPosition: "center 15%" }}
+              />
+              <figcaption>
+                <strong>ART3MIS</strong>
+                Ilustrace
+              </figcaption>
+            </figure>
+            <figure className="hero-showcase-item hero-showcase-item--b">
+              <img
+                src="/portfolios/anelly/uploads/IMG_5636.jpeg"
+                alt="Fotografie Anelly"
+                style={{ objectPosition: "center 78%" }}
+              />
+              <figcaption>
+                <strong>Anelly</strong>
+                Zpěvačka · Pop
+              </figcaption>
+            </figure>
+          </div>
         </div>
-        <header className="hero-content">
-          <span className="font-mono-label hero-label">KOMUNITA PRO UMĚLCE</span>
-          <h1 className="hero-title">VeVit Art</h1>
-          <p className="hero-subtitle">
-            Prostor, kde <span>umění</span> roste
-          </p>
-          <p className="hero-text">
-            Propojujeme začínající umělce všech oborů, od ilustrace přes cosplay až po spisovatele. Společně
-            rosteme, sdílíme a tvoříme.
-          </p>
-          <a href="/list" className="hero-cta">
-            Prohlédněte si naše umělce
-          </a>
-          <a href="#about" className="hero-secondary">
-            nebo se dozvědět více
-          </a>
-        </header>
         <a href="#artists" className="hero-scroll">
           <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <polyline points="6 9 12 15 18 9" />
@@ -80,67 +132,27 @@ export default function HomePage() {
               <h2 className="section-title">Co je VeVit Art?</h2>
               <div className="text-secondary" style={{ fontSize: 18, lineHeight: 1.6, marginBottom: 32 }}>
                 <p style={{ marginBottom: 16 }}>
-                  VeVit Art je komunitní prostor založený technologickou firmou VeVit Technologies. Věříme, že každý
-                  umělec, bez ohledu na zkušenosti či obor, zaslouží podporu, inspiraci a možnost růstu.
+                  VeVit Art stavíme my z VeVit Technologies jako prostor pro začínající umělce — ilustrátory,
+                  cosplayery, sochaře, fotografy, hudebníky i spisovatele, bez ohledu na obor či zkušenosti. Chceme,
+                  aby tu každý, kdo tvoří, našel podporu a místo, kde si zaslouží růst.
                 </p>
                 <p>
-                  Naše komunita je místem, kde se umělci mohou propojovat, vzájemně si pomáhat, sdílet zkušenosti a
-                  společně tvořit něco většího.
+                  Právě teď je nás v komunitě pár — ART3MIS a Anelly — a průběžně hledáme další. Menší komunita
+                  znamená, že se tu neztratíte: vaši práci uvidíme, propojíme vás s ostatními a pomůžeme vám najít
+                  vlastní cestu.
                 </p>
               </div>
-              <ul className="values-list">
-                <li className="value-item fade-in stagger-1">
-                  <div className="value-icon">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <circle cx="12" cy="12" r="10" />
-                      <path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32" />
-                    </svg>
-                  </div>
-                  <span className="value-text">Propojení umělců napříč obory</span>
-                </li>
-                <li className="value-item fade-in stagger-2">
-                  <div className="value-icon">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-                      <circle cx="9" cy="7" r="4" />
-                      <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-                      <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                    </svg>
-                  </div>
-                  <span className="value-text">Vzájemná podpora a sdílení zkušeností</span>
-                </li>
-                <li className="value-item fade-in stagger-3">
-                  <div className="value-icon">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z" />
-                      <path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z" />
-                      <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0" />
-                      <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" />
-                    </svg>
-                  </div>
-                  <span className="value-text">Prostor pro růst a rozvoj talentu</span>
-                </li>
-                <li className="value-item fade-in stagger-4">
-                  <div className="value-icon">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                    </svg>
-                  </div>
-                  <span className="value-text">Inspirace a kreativní spolupráce</span>
-                </li>
-              </ul>
             </div>
             <div className="fade-in stagger-2">
-              <figure style={{ position: "relative", margin: 0 }}>
+              <figure className="about-illustration" style={{ margin: 0 }}>
                 <img
-                  src="/about-illustration.jpg"
-                  alt="Ilustrace komunity VeVit Art"
-                  style={{ width: "100%", borderRadius: 8, border: "1px solid rgba(255,255,255,0.05)" }}
+                  src={encodeURI("/portfolios/art3mis/uploads/20260106_220425-9fe8b4e8.jpg")}
+                  alt="Ilustrace fanart postav ze hry Hollow Knight, autorka ART3MIS"
                 />
-                <div
-                  aria-hidden="true"
-                  style={{ position: "absolute", inset: -16, background: "rgba(16,185,129,0.05)", borderRadius: 12, filter: "blur(24px)", zIndex: -1 }}
-                />
+                <figcaption>
+                  <strong>ART3MIS</strong>
+                  Ilustrace, členka komunity
+                </figcaption>
               </figure>
             </div>
           </div>
@@ -161,49 +173,16 @@ export default function HomePage() {
               <span className="status-badge active">AKTIVNÍ NYNÍ</span>
               <div style={{ flex: 1, height: 1, background: "rgba(255,255,255,0.05)" }} />
             </div>
-            <div className="artists-grid fade-in">
-              {[
-                {
-                  title: "Portfolio zdarma",
-                  desc: "Vlastní online portfolio, kde prezentujete svou tvorbu zcela zdarma a bez starostí s technikou.",
-                  path: "M3 3h7v9H3zM14 3h7v5h-7zM14 12h7v9h-7zM3 16h7v5H3z",
-                  rect: true,
-                },
-                {
-                  title: "Komunitní prostor",
-                  desc: "Online platforma pro sdílení práce, diskuzi a vzájemnou inspiraci.",
-                  path: "M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z",
-                },
-                {
-                  title: "Mentoring",
-                  desc: "Možnost konzultací s zkušenějšími umělci z komunity.",
-                  path: "M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2",
-                },
-                {
-                  title: "Výstavy",
-                  desc: "Organizace skupinových výstav podmíněných dostatečným počtem členů.",
-                  path: "M3 3h18v18H3z",
-                  rect: true,
-                },
-              ].map((o) => (
+            <div className="offer-grid fade-in" style={{ "--offer-cols": activeOfferings.length } as CSSProperties}>
+              {activeOfferings.map((o) => (
                 <article className="offering-card" key={o.title}>
                   <div className="offering-icon">
                     {o.rect ? (
                       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        {o.title === "Výstavy" ? (
-                          <>
-                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
-                            <circle cx="8.5" cy="8.5" r="1.5" />
-                            <polyline points="21 15 16 10 5 21" />
-                          </>
-                        ) : (
-                          <>
-                            <rect x="3" y="3" width="7" height="9" />
-                            <rect x="14" y="3" width="7" height="5" />
-                            <rect x="14" y="12" width="7" height="9" />
-                            <rect x="3" y="16" width="7" height="5" />
-                          </>
-                        )}
+                        <rect x="3" y="3" width="7" height="9" />
+                        <rect x="14" y="3" width="7" height="5" />
+                        <rect x="14" y="12" width="7" height="9" />
+                        <rect x="3" y="16" width="7" height="5" />
                       </svg>
                     ) : (
                       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -225,23 +204,26 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Planned */}
-          <div>
+          {/* Planned — realistic in the coming months */}
+          <div style={{ marginBottom: 40 }}>
             <div className="fade-in" style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 24 }}>
               <span className="status-badge planning">V PŘÍPRAVĚ</span>
               <div style={{ flex: 1, height: 1, background: "rgba(255,255,255,0.05)" }} />
             </div>
-            <div className="artists-grid grid-2col fade-in">
-              {[
-                { title: "Dílny pro naše umělce", desc: "Plně vybavené dílny se všemi materiály a nástroji, které budete potřebovat pro svou tvorbu.", path: "m22 8-6 6-6-6 M2 12h4 M20 12h2 m15 13 3 3 3-3 m9 13-3 3-3-3" },
-                { title: "Workshopy", desc: "Praktické workshopy vedené zkušenými lektory z řad komunity.", path: "M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" },
-                { title: "Půjčovna cosplay", desc: "Možnost zapůjčit si profesionální cosplay kostýmy pro focení či akce.", path: "M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z" },
-                { title: "Ochrana autorských práv", desc: "Pomoc s vymáháním autorských práv a poradenství v oblasti duševního vlastnictví.", path: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" },
-              ].map((o) => (
+            <div className="offer-grid fade-in" style={{ "--offer-cols": plannedOfferings.length } as CSSProperties}>
+              {plannedOfferings.map((o) => (
                 <article className="offering-card planning" key={o.title}>
                   <div className="offering-icon">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d={o.path} />
+                      {o.rect ? (
+                        <>
+                          <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                          <circle cx="8.5" cy="8.5" r="1.5" />
+                          <polyline points="21 15 16 10 5 21" />
+                        </>
+                      ) : (
+                        <path d={o.path} />
+                      )}
                     </svg>
                   </div>
                   <h3 className="offering-title">{o.title}</h3>
@@ -250,6 +232,13 @@ export default function HomePage() {
               ))}
             </div>
           </div>
+
+          {/* Long-term vision — explicitly framed as ambition, not a near promise */}
+          <p className="fade-in offer-vision">
+            Do budoucna bychom rádi šli dál — vlastní dílna s nástroji a materiálem, půjčovna cosplay kostýmů nebo
+            pomoc s ochranou autorských práv. Je to naše vize, ne blízký slib — dá smysl až ve chvíli, kdy komunita
+            skutečně poroste.
+          </p>
         </div>
       </section>
 
@@ -270,7 +259,7 @@ export default function HomePage() {
                 { title: "Začínající umělci", desc: "Hledáte první kroky, inspiraci a podpůrné prostředí pro váš rozvoj.", path: "m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" },
                 { title: "Zkušení umělci", desc: "Chcete sdílet své know-how, mentorovat a propojit se s dalšími profesionály.", path: "M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" },
                 { title: "Cosplay komunita", desc: "Tvoříte kostýmy, rekvizity nebo se chcete naučit nové techniky craftingu.", path: "M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z" },
-                { title: "Všestranní tvořivci", desc: "Kombinujete více oborů, experimentujete a hledáte svou cestu.", path: "M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20 M2 12h20", circle: true },
+                { title: "Všestranní tvořivci", desc: "Klidně kreslíte a zároveň zpíváte, nebo šijete kostýmy a fotíte — nechcete se škatulkovat do jednoho oboru.", path: "M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20 M2 12h20", circle: true },
               ].map((a) => (
                 <article className="audience-card fade-in" key={a.title}>
                   <div className="offering-icon" style={{ background: "rgba(16,185,129,0.1)", color: "#10B981" }}>
