@@ -9,6 +9,11 @@ export type Artist = {
   nick: string;
   name: string;
   image: string;
+  /** Rozměry originálu, aby next/image rezervoval správný poměr stran bez ořezu. */
+  imageWidth: number;
+  imageHeight: number;
+  /** Popis díla pro čtečky obrazovky. */
+  imageAlt: string;
   fieldLabel: string;
   iconKey: ArtistIconKey;
   accent: string;
@@ -25,10 +30,13 @@ export const artistsData: Artist[] = [
     nick: "art3mis",
     name: "ART3MIS",
     image: "/portfolios/art3mis/uploads/20251020_222528-605336dc.jpg",
+    imageWidth: 2416,
+    imageHeight: 3544,
+    imageAlt: "Ilustrace postavy s šedými vlasy a modrýma očima v červené bundě, která míří rukou s pistolí k divákovi",
     fieldLabel: "Ilustrace",
     iconKey: "brush",
     accent: "#e6362e",
-    description: "Anime a videoherní ilustrace — tužka, fix i digitální kresba.",
+    description: "Anime a videoherní ilustrace, tužka, fix i digitální kresba.",
     longDescription:
       "Kreslíř od dětství. Anime a videoherní světy jsou hlavní inspirace; tužka, fix a čím dál víc i digitální kresba.",
     location: "CZ",
@@ -39,6 +47,9 @@ export const artistsData: Artist[] = [
     nick: "anelly",
     name: "Anelly",
     image: "/portfolios/anelly/uploads/IMG_5636.jpeg",
+    imageWidth: 3456,
+    imageHeight: 5184,
+    imageAlt: "Zpěvačka Anelly v květinových šatech sedí v trávě na louce a drží kytici drobných bílých květů",
     fieldLabel: "Zpěvačka · Pop",
     iconKey: "mic",
     accent: "#8f9678",

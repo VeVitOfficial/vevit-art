@@ -69,7 +69,7 @@ export async function POST(request: Request) {
       to: artistEmail,
       bcc: "info@vevit.art",
       replyTo: email,
-      subject: `Nová žádost o spolupráci — ${artist.name} | VeVit Art`,
+      subject: `Nová žádost o spolupráci, ${artist.name} | VeVit Art`,
       react: createElement(PortfolioInquiryTemplate, {
         jmeno,
         email,

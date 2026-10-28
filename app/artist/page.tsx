@@ -16,16 +16,16 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
     return {
       title: "Profil nenalezen",
       description:
-        "Profil umělce komunity VeVit Art — obor, lokalita, dovednosti, datum připojení a odkazy na sociální sítě a portfolio.",
+        "Profil umělce komunity VeVit Art, obor, lokalita, dovednosti, datum připojení a odkazy na sociální sítě a portfolio.",
       alternates: { canonical: `${SITE_URL}/artist` },
     };
   }
   return {
     title: artist.name,
-    description: `${artist.name} — ${artist.fieldLabel}, ${artist.location}. ${artist.longDescription}`,
+    description: `${artist.name}, ${artist.fieldLabel}, ${artist.location}. ${artist.longDescription}`,
     alternates: { canonical: `${SITE_URL}/artist?nick=${encodeURIComponent(artist.nick)}` },
     openGraph: {
-      title: `${artist.name} — VeVit Art`,
+      title: `${artist.name}. VeVit Art`,
       description: artist.longDescription,
       images: [{ url: artist.image }],
     },
@@ -43,7 +43,7 @@ export default async function ArtistPage({ searchParams }: Props) {
       {
         "@type": "WebPage",
         "@id": `${SITE_URL}/artist#page`,
-        name: "Profil umělce — VeVit Art",
+        name: "Profil umělce. VeVit Art",
         url: `${SITE_URL}/artist`,
         inLanguage: "cs",
         isPartOf: { "@id": `${SITE_URL}/#website` },
@@ -63,10 +63,10 @@ export default async function ArtistPage({ searchParams }: Props) {
   return (
     <>
       <JsonLd data={pageJsonLd} />
-      <main style={{ minHeight: "100vh", paddingTop: 96, paddingBottom: 80 }}>
-        <div className="container" style={{ maxWidth: 1000 }}>
+      <div className="page">
+        <div className="wrap">
           <a href="/list" className="back-link" id="back-link">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <line x1="19" y1="12" x2="5" y2="12" />
               <polyline points="12 19 5 12 12 5" />
             </svg>
@@ -93,14 +93,12 @@ export default async function ArtistPage({ searchParams }: Props) {
               />
             </>
           ) : (
-            <article className="join-cta fade-in">
-              <h3 className="join-cta-title">Umělec nenalezen</h3>
-              <p className="join-cta-text">
-                Tento profil neexistuje. Podívejte se na ostatní umělce, nebo se k nám přidejte.
-              </p>
-              <a href="/list" className="btn-primary join-cta-btn">
+            <article className="notice fade-in" style={{ marginTop: 24 }}>
+              <h2>Umělec nenalezen</h2>
+              <p>Tento profil neexistuje. Podívejte se na ostatní umělce, nebo se k nám přidejte.</p>
+              <a href="/list" className="btn">
                 Zpět na naše umělce
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <line x1="5" y1="12" x2="19" y2="12" />
                   <polyline points="12 5 19 12 12 19" />
                 </svg>
@@ -108,7 +106,7 @@ export default async function ArtistPage({ searchParams }: Props) {
             </article>
           )}
         </div>
-      </main>
+      </div>
     </>
   );
 }

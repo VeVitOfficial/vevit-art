@@ -29,7 +29,7 @@ const SOURCE_LABEL: Record<ContactTemplateProps["source"], string> = {
 function Field({ label, value }: { label: string; value: string }) {
   return (
     <Section style={{ marginBottom: 4 }}>
-      <Text style={{ margin: 0, fontSize: 12, color: "#10B981", fontWeight: 600 }}>
+      <Text style={{ margin: 0, fontSize: 12, color: "#2E9E6B", fontWeight: 600 }}>
         {label.toUpperCase()}
       </Text>
       <Text style={{ margin: "2px 0 0", fontSize: 15, color: "#FFFFFF", lineHeight: 1.5 }}>
@@ -64,7 +64,7 @@ export default function ContactTemplate({
       <Preview>Nové přihlášení umělce | VeVit Art</Preview>
       <Body style={{ backgroundColor: "#0D0D0D", color: "#FFFFFF", fontFamily: "Arial, Helvetica, sans-serif" }}>
         <Container style={{ maxWidth: 560, margin: "0 auto", padding: "32px 24px" }}>
-          <Heading style={{ fontSize: 22, color: "#10B981", margin: "0 0 4px" }}>
+          <Heading style={{ fontSize: 22, color: "#2E9E6B", margin: "0 0 4px" }}>
             Nové přihlášení umělce
           </Heading>
           <Text style={{ fontSize: 13, color: "rgba(255,255,255,0.6)", margin: "0 0 24px" }}>

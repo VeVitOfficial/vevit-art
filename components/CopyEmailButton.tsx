@@ -3,7 +3,7 @@
 import { useState } from "react";
 
 export default function CopyEmailButton({ email }: { email: string }) {
-  const [label, setLabel] = useState(email);
+  const [copied, setCopied] = useState(false);
 
   const onCopy = async () => {
     try {
@@ -18,25 +18,13 @@ export default function CopyEmailButton({ email }: { email: string }) {
       document.execCommand("copy");
       document.body.removeChild(ta);
     }
-    setLabel("Zkopírováno! ✓");
-    setTimeout(() => setLabel(email), 2000);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   return (
-    <button
-      type="button"
-      onClick={onCopy}
-      style={{
-        color: "#10B981",
-        fontWeight: 500,
-        background: "none",
-        border: "none",
-        cursor: "pointer",
-        fontFamily: "inherit",
-        fontSize: "inherit",
-      }}
-    >
-      {label}
+    <button type="button" className="text-link" onClick={onCopy} aria-label={`Zkopírovat e-mail ${email}`}>
+      <span aria-live="polite">{copied ? "Zkopírováno ✓" : email}</span>
     </button>
   );
 }

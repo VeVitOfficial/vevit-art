@@ -20,9 +20,9 @@ const OBOR_OPTIONS = [
 export default function ContactForm({ source = "homepage" }: { source?: Source }) {
   const [obor, setObor] = useState("");
   const [showOther, setShowOther] = useState(false);
-  const [status, setStatus] = useState<{ text: string; color: string }>({
+  const [status, setStatus] = useState<{ text: string; state: "idle" | "ok" | "error" }>({
     text: "",
-    color: "rgba(255,255,255,0.6)",
+    state: "idle",
   });
   const [sending, setSending] = useState(false);
 
@@ -36,7 +36,7 @@ export default function ContactForm({ source = "homepage" }: { source?: Source }
     const form = e.currentTarget;
     const fd = new FormData(form);
     setSending(true);
-    setStatus({ text: "", color: "rgba(255,255,255,0.6)" });
+    setStatus({ text: "", state: "idle" });
 
     // Honeypot — silently accept, never send.
     if (fd.get("botcheck")) {
@@ -62,7 +62,7 @@ export default function ContactForm({ source = "homepage" }: { source?: Source }
       if (res.ok) {
         setStatus({
           text: "Díky! Vaši zprávu jsme přijali. Ozveme se vám co nejdříve.",
-          color: "#10B981",
+          state: "ok",
         });
         form.reset();
         onOborChange("");
@@ -71,8 +71,8 @@ export default function ContactForm({ source = "homepage" }: { source?: Source }
       }
     } catch {
       setStatus({
-        text: "Něco se pokazilo. Zkuste to prosím znovu nebo napište na info@vevit.art.",
-        color: "#ef4444",
+        text: "Zprávu se nepodařilo odeslat. Zkuste to prosím znovu nebo napište na info@vevit.art.",
+        state: "error",
       });
     } finally {
       setSending(false);
@@ -80,35 +80,29 @@ export default function ContactForm({ source = "homepage" }: { source?: Source }
   };
 
   return (
-    <form
-      className="fade-in stagger-1"
-      id="contact-form"
-      onSubmit={onSubmit}
-      style={{ textAlign: "left" }}
-    >
-      <input
-        type="checkbox"
-        name="botcheck"
-        style={{ display: "none !important" }}
-        tabIndex={-1}
-        autoComplete="off"
-      />
-      <div className="form-row">
-        <div className="form-group">
-          <label className="form-label">Jméno</label>
-          <input type="text" name="jmeno" className="form-input" placeholder="Vaše jméno" required />
+    <form className="form fade-in" id="contact-form" onSubmit={onSubmit} aria-describedby="form-status">
+      <p className="form-note">Všechna pole kromě upřesnění oboru jsou povinná.</p>
+      <div className="hp" aria-hidden="true">
+        <label>
+          Nevyplňujte
+          <input type="checkbox" name="botcheck" tabIndex={-1} autoComplete="off" />
+        </label>
+      </div>
+      <div className="field-row">
+        <div className="field">
+          <label htmlFor="contact-name">Jméno</label>
+          <input id="contact-name" type="text" name="jmeno" autoComplete="name" placeholder="Vaše jméno" required />
         </div>
-        <div className="form-group">
-          <label className="form-label">Email</label>
-          <input type="email" name="email" className="form-input" placeholder="vas@email.cz" required />
+        <div className="field">
+          <label htmlFor="contact-email">E-mail</label>
+          <input id="contact-email" type="email" name="email" autoComplete="email" placeholder="vas@email.cz" required />
         </div>
       </div>
-      <div className="form-group">
-        <label className="form-label">Obor</label>
+      <div className="field">
+        <label htmlFor="obor-select">Obor</label>
         <select
           name="obor"
           id="obor-select"
-          className="form-input"
           required
           value={obor}
           onChange={(e) => onOborChange(e.target.value)}
@@ -123,28 +117,30 @@ export default function ContactForm({ source = "homepage" }: { source?: Source }
           ))}
         </select>
       </div>
-      <div className="form-group" id="other-field-group" style={{ display: showOther ? undefined : "none" }}>
-        <label className="form-label">Váš obor</label>
-        <input type="text" name="obor_jiny" className="form-input" placeholder="Napište váš obor" />
+      <div className="field" id="other-field-group" hidden={!showOther}>
+        <label htmlFor="contact-other">Váš obor</label>
+        <input id="contact-other" type="text" name="obor_jiny" placeholder="Napište váš obor" />
       </div>
-      <div className="form-group">
-        <label className="form-label">Zpráva</label>
+      <div className="field">
+        <label htmlFor="contact-message">Zpráva</label>
         <textarea
+          id="contact-message"
           name="zprava"
-          className="form-input"
           rows={5}
-          placeholder="Napište nám něco o sobě a proč se chcete zapojit..."
+          placeholder="Napište nám něco o sobě a proč se chcete zapojit…"
           required
         />
       </div>
-      <button type="submit" className="btn-primary" id="contact-submit" disabled={sending}>
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <line x1="22" y1="2" x2="11" y2="13" />
-          <polygon points="22 2 15 22 11 13 2 9 22 2" />
-        </svg>
+      <button type="submit" className="btn" id="contact-submit" disabled={sending} aria-busy={sending}>
         <span className="btn-label">{sending ? "Odesílám…" : "Odeslat zprávu"}</span>
       </button>
-      <p id="form-status" style={{ marginTop: 16, fontSize: 14, minHeight: 20, color: status.color }}>
+      <p
+        id="form-status"
+        className="status"
+        role={status.state === "error" ? "alert" : "status"}
+        aria-live={status.state === "error" ? "assertive" : "polite"}
+        data-state={status.state}
+      >
         {status.text}
       </p>
     </form>

@@ -11,6 +11,16 @@ import { useEffect } from "react";
  */
 export default function Reveal() {
   useEffect(() => {
+    // Bez pohybu (nebo bez IntersectionObserveru) zůstává obsah rovnou vidět.
+    if (
+      typeof IntersectionObserver === "undefined" ||
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
+      return;
+    }
+    // Skrytý výchozí stav platí jen po zapnutí JS, takže bez skriptu obsah nezmizí.
+    document.documentElement.classList.add("reveal-ready");
+
     const io = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
@@ -43,6 +53,7 @@ export default function Reveal() {
     return () => {
       io.disconnect();
       mo.disconnect();
+      document.documentElement.classList.remove("reveal-ready");
     };
   }, []);
 

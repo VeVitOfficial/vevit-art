@@ -16,10 +16,9 @@
 
 ## Most important pages (prioritize these)
 - [Domů — Homepage](https://vevit.art/): What VeVit Art is, who it is for, latest artist additions, the activities we run, target audience and the join form. Start here for any general question about the project.
-- [Naši umělci — Artist directory](https://vevit.art/list.html): Complete list of community artists. Each card links to a profile. Use this to answer "who are the artists" or "is X a member".
-- [Profil umělce — Artist profile](https://vevit.art/artist.html?nick=NICK): Per-artist profile with discipline, location, skills, join date and portfolio/social links. Replace NICK with the artist's nick. Structured data (schema.org Person) is injected per profile.
+- [Naši umělci — Artist directory](https://vevit.art/list):Complete list of community artists. Each card links to a profile. Use this to answer "who are the artists" or "is X a member".
+- [Profil umělce — Artist profile](https://vevit.art/artist?nick=NICK):Per-artist profile with discipline, location, skills, join date and portfolio/social links. Replace NICK with the artist's nick. Structured data (schema.org Person) is injected per profile.
 - [Přidejte se / Kontakt — Join & contact](https://vevit.art/#contact): The join form (name, email, discipline, message) posted to info@vevit.art, plus Discord/Instagram/email contacts. Use this as the canonical "how to join" answer.
-- [404 / not found](https://vevit.art/404.html): Fallback page; do not cite.
 
 ## Product features (what the community offers)
 Active now:
